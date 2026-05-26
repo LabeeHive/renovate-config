@@ -2,8 +2,11 @@
     "$schema": "https://docs.renovatebot.com/renovate-inherited-schema.json",
     "onboarding": true,
     "onboardingConfigFileName": ".github/renovate.json5",
-    "extends": [
-        "github>LabeeHive/.github:default.json5"
-    ]
+    "onboardingConfig": {
+        "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+        "extends": [
+            "github>LabeeHive/.github:default.json5"
+        ]
+    }
 }
 
