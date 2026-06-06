@@ -5,7 +5,7 @@
     "onboardingConfig": {
         "$schema": "https://docs.renovatebot.com/renovate-schema.json",
         "extends": [
-            "github>LabeeHive/.github:default.json5"
+            "github>LabeeHive/renovate-config:default.json5"
         ]
     }
 }
