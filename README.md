@@ -9,37 +9,35 @@ The Mend-hosted Renovate App auto-discovers `<org>/renovate-config/org-inherited
 This repo also hosts the shared `default.json5` preset that every onboarded repo extends.
 
 ```
-┌────────────────────────────────────┐
-│  Mend-hosted Renovate App          │
-└────────────────┬───────────────────┘
-                 │ reads on every run
-                 ▼
-┌────────────────────────────────────┐
-│ org-inherited-config.json          │  ← this repo
-└────────────────┬───────────────────┘
-                 │ shapes onboarding PR
-                 ▼
-┌────────────────────────────────────┐
-│ each repo in the org               │
-│   .github/renovate.json5           │
-│   extends:                         │
-│     github>LabeeHive/              │
-│       renovate-config:default.json5│──┐
-└────────────────────────────────────┘  │
-                                        │
-                ┌───────────────────────┘
-                ▼
-┌────────────────────────────────────┐
-│ default.json5  (shared preset)     │  ← this repo
-└────────────────────────────────────┘
+       Mend                       this repo                       each repo
+  ┌────────────┐            ┌─────────────────────┐         ┌──────────────────────┐
+  │            │            │ org-inherited-      │         │                      │
+  │  Renovate  │ ──reads──▶ │   config.json       │         │  .github/            │
+  │  App       │            │                     │         │    renovate.json5    │
+  │  (hosted)  │            │ default.json5       │◀extends─│                      │
+  │            │            │  (shared preset)    │         │                      │
+  └─────┬──────┘            └─────────────────────┘         └──────────┬───────────┘
+        │                                                              ▲
+        └──── onboards (opens initial Renovate onboarding PR) ─────────┘
 ```
+
+When onboarded, each repo's `.github/renovate.json5` is auto-generated with:
+
+```json5
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>LabeeHive/renovate-config:default.json5"],
+}
+```
+
+Changes to `default.json5` are picked up on the next Renovate run on each repo (no per-repo action required).
 
 ## Conventions (Mend-hosted, non-negotiable)
 
 - Repo name must be `renovate-config`
 - File name must be `org-inherited-config.json`
-- This repo does not need to be onboarded
-- Renovate App must be installed on this repo for it to be read
+- This repo does not need a Renovate onboarding PR
+- The Renovate App must still be installed on this repo (otherwise Mend cannot read it)
 
 ## References
 
