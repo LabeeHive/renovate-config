@@ -38,6 +38,11 @@
     {
       groupName: "cloudflare workers-sdk",
       matchSourceUrls: ["https://github.com/cloudflare/workers-sdk"],
+      // https://docs.renovatebot.com/configuration-options/#minimumreleaseage
+      // config:best-practices (via security:minimumReleaseAgeNpm) sets 3 days
+      // for all npm packages; shortened here for the fast-moving workers-sdk
+      // monorepo (wrangler, miniflare, etc).
+      minimumReleaseAge: "1 day",
     },
   ],
 }
